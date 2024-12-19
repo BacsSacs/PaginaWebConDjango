@@ -16,12 +16,27 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from core import views
+from core import views as core_views
+from portafolio import views as portfolio_views
+
+
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.home,name="home"),
-    path('about/',views.About,name="about"),
-    path('portfolio/',views.Portafolio,name="portfolio"),
-    path('contact/',views.Contacto,name="contact"),
+    path('',core_views.home,name="home"),
+    path('about/',core_views.About,name="about"),
+    path('portfolio/',portfolio_views.Portafolio,name="portfolio"),
+    path('contact/',core_views.Contacto,name="contact"),
 ]
+
+# Si estamos en modo desarrollador, importamos la configuración
+# extendida para que en el panel administrador se puedan
+# descargar imagenes
+if settings.DEBUG:
+    from django.conf.urls.static import static
+    # Si alguien intenta acceder al fichero(imagen), le sirva
+    # o se la deje ver
+    # al urlpatterns lo modificamos para pasarle la raiz de los 
+    # ficheros media
+    urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

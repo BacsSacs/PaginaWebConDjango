@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'portafolio.apps.PortafolioConfig',
 ]
 
 MIDDLEWARE = [
@@ -117,6 +119,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# Para almacenar y gestionar archivos multimedia
+# se creo la carpeta MEDIA  y a continuación se instancia el script
+# para que django pueda usarlo
+
+# Media files
+MEDIA_URL = '/media/'
+# ruta interna donde tiene que encontrar los archivos
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
